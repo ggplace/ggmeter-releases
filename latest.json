@@ -1,0 +1,11 @@
+{
+  "version": "0.2.10",
+  "notes": "Подробности — на странице релиза.",
+  "pub_date": "2026-08-20T16:50:28Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTdkkwaVRqNDFMdHFMVm5kelYvd0Q4YmVVOFFKSEphZDRWaWVrWmRFV2t0b25OVG8vVW9VOXZ4RG9COHNWRU9sNFFEekpnZ256aVZVWm1mTW1XVDRWOEZNb3FxeDJWYlFrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg3MjQ0MzA2CWZpbGU6R0cuTWV0ZXJfMC4yLjEwX3g2NC1zZXR1cC5leGUKTERhdnIyNzRFU0lGSUNaV3AxN2xNUWh0YkswbXVNczdnYzBSN0xJcmlUZEl6VHhHSGFEZzh5SVp3ZTBVeTlaL3Btc1lNTHpCMCtsR214dit4YXBCQlE9PQo=",
+      "url": "https://github.com/ggplace/ggmeter-releases/releases/download/v0.2.10/GG.Meter_0.2.10_x64-setup.exe"
+    }
+  }
+}
