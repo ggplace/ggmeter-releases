@@ -1,11 +1,11 @@
 {
-  "version": "0.2.71",
+  "version": "0.2.72",
   "notes": "Подробности — на странице релиза.",
-  "pub_date": "2026-08-25T14:45:25Z",
+  "pub_date": "2026-08-25T15:01:25Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTdkkwaVRqNDFMdGlGZmZFNG5KMVNrQXN4TWE4NUo4TjFILzZlVGlVZy9odjh4eU1sQXVSaVJReHZSejJXamltVWhMTzE5d3ZITGNhT21qaDJKNG5qOUF4UkFwQnJVcHdjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg3NjY5MTIyCWZpbGU6R0cuTWV0ZXJfMC4yLjcxX3g2NC1zZXR1cC5leGUKaERuSFdVRjNEZ25SalpNMlVjVWRxdTZYNExPV1VmWGNWNVNPRnhmR1dHT3FYTmwxeUkzT0d3Ylh6Mk1JYmxKUkVzMUxtZDloMlg4YmFvUGMxZUluQUE9PQo=",
-      "url": "https://github.com/ggplace/ggmeter-releases/releases/download/v0.2.71/GG.Meter_0.2.71_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTdkkwaVRqNDFMdGxaUGJmWlI1UDNLUzRkUTRGMlhVSGpnVGRxWVpzMnIyTE53ajhuRzZxL3FMVTVFaHpMdVVRYnhiTFBBMExYcmE1RWFRd3dzNnp2dG9YWlJCM0taekFRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg3NjcwMDgxCWZpbGU6R0cuTWV0ZXJfMC4yLjcyX3g2NC1zZXR1cC5leGUKaGpKcXVCbUJJemFydTd2NGpsVDJiS3d3ZEIwMkVnUUxuNmFUU2NWK3BmdlJTUC9NcVRtVi9jc1NQMStKUXVpVS9aaVlpZDRvUW95VjZNeVhrZ3ZYRFE9PQo=",
+      "url": "https://github.com/ggplace/ggmeter-releases/releases/download/v0.2.72/GG.Meter_0.2.72_x64-setup.exe"
     }
   }
 }
