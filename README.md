@@ -57,11 +57,11 @@
   «Support loopback traffic», если у тебя ExitLag), и начни бой.
 - **Нужна помощь** — **Настройки → О программе → «Собрать диагностику»**:
   метр сложит журнал и настройки (без паролей и ключей) в папку. Пришли
-  её в [Discord](https://discord.gg/pulsort) и опиши, что происходит.
+  её в [Discord](https://discord.gg/diffaion2) и опиши, что происходит.
 
 ## Поддержка
 
-Вопросы, ошибки, идеи — в [Discord](https://discord.gg/pulsort).
+Вопросы, ошибки, идеи — в [Discord](https://discord.gg/diffaion2).
 
 ---
 
