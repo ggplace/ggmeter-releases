@@ -32,7 +32,8 @@ jobs:
         run: |
           set -euo pipefail
           R="$GITHUB_REPOSITORY"
-          if gh release view "$TAG" -R "$R" >/dev/null 2>&1; then echo "Релиз $TAG уже опубликован" >&2; exit 1; fi
+          # releases/tags/<тег> черновиков не видит — значит, это именно опубликованный релиз.
+          if gh api "repos/$R/releases/tags/$TAG" >/dev/null 2>&1; then echo "Релиз $TAG уже опубликован" >&2; exit 1; fi
           id=$(gh api "repos/$R/releases?per_page=100" --paginate --jq '.[] | select(.draft and .tag_name == env.TAG) | .id' | head -1)
           [ -n "$id" ] || { echo "Нет черновика $TAG" >&2; exit 1; }
           gh api "repos/$R/releases/$id" > "$RUNNER_TEMP/draft.json"
