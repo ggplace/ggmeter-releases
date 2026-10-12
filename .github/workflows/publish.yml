@@ -1,0 +1,62 @@
+# Публикация релиза из черновика: сборку выкладывают черновиком (его видно
+# только владельцам), а публичный релиз создаёт этот workflow — автором
+# релиза и манифеста значится бот GitHub Actions.
+#
+#   gh workflow run publish.yml -R ggplace/ggmeter-releases -f tag=v0.2.131 -f kind=latest
+#
+# kind: latest — обычный релиз (на него ведёт постоянная ссылка latest/download);
+# prerelease — пред-релиз. Если в черновике есть файл latest.json, он становится
+# манифестом автообновления (в релиз не попадает).
+# dry_run: только найти черновик и скачать файлы, ничего не публиковать.
+name: publish
+on:
+  workflow_dispatch:
+    inputs:
+      tag: { required: true, type: string }
+      kind: { required: true, type: choice, options: [latest, prerelease], default: latest }
+      dry_run: { required: false, type: boolean, default: false }
+permissions:
+  contents: write
+concurrency: publish
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: ${{ inputs.tag }}
+      KIND: ${{ inputs.kind }}
+      DRY: ${{ inputs.dry_run }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Черновик → релиз
+        run: |
+          set -euo pipefail
+          R="$GITHUB_REPOSITORY"
+          if gh release view "$TAG" -R "$R" >/dev/null 2>&1; then echo "Релиз $TAG уже опубликован" >&2; exit 1; fi
+          id=$(gh api "repos/$R/releases?per_page=100" --paginate --jq '.[] | select(.draft and .tag_name == env.TAG) | .id' | head -1)
+          [ -n "$id" ] || { echo "Нет черновика $TAG" >&2; exit 1; }
+          gh api "repos/$R/releases/$id" > "$RUNNER_TEMP/draft.json"
+          d="$RUNNER_TEMP/files"; mkdir -p "$d"
+          jq -r '.assets[] | "\(.id)\t\(.name)"' "$RUNNER_TEMP/draft.json" | while IFS=$'\t' read -r aid name; do
+            gh api -H 'Accept: application/octet-stream' "repos/$R/releases/assets/$aid" > "$d/$name"
+          done
+          jq -r '.body // ""' "$RUNNER_TEMP/draft.json" > "$RUNNER_TEMP/notes.md"
+          title=$(jq -r '.name // env.TAG' "$RUNNER_TEMP/draft.json")
+          manifest=""
+          if [ -f "$d/latest.json" ]; then mv "$d/latest.json" "$RUNNER_TEMP/latest.json"; manifest=1; fi
+          ls -la "$d"
+          if [ "$DRY" = "true" ]; then echo "dry_run: черновик найден, файлы скачаны, ничего не публикую"; exit 0; fi
+
+          if [ "$KIND" = prerelease ]; then kind=(--prerelease --latest=false); else kind=(--latest); fi
+          gh release create "$TAG" -R "$R" --target main "${kind[@]}" --title "$title" --notes-file "$RUNNER_TEMP/notes.md" "$d"/*
+          gh api -X DELETE "repos/$R/releases/$id"
+
+          if [ -n "$manifest" ]; then
+            cp "$RUNNER_TEMP/latest.json" latest.json
+            git config user.name "GG.Meter"; git config user.email "noreply@ggplace.invalid"
+            git add latest.json
+            git commit -m "Манифест обновления $TAG"
+            git push
+            # jsDelivr держит @main до 12 часов — сбросить.
+            curl -fsS "https://purge.jsdelivr.net/gh/$R@main/latest.json" >/dev/null || echo "jsDelivr: сбросить кэш не вышло"
+          fi
